@@ -24,9 +24,9 @@ public class FacebookExam {
 		// 遠端資料路徑
 
 		String uri = 
-				"https://graph.facebook.com/v2.6"
-				+ "/search?q="
-				+ "&access_token=";
+				"https://graph.facebook.com/v2.8"
+				+ "/crazyck101/feed?fields=id,likes.limit(0).summary(total_count),reactions.limit(0).summary(total_count)"
+				+ "&access_token=186351491872243%7CWSWcwXuO-5LwkTAZwtyiFuMXffY";
 
 
 		Elements elems =
@@ -34,17 +34,18 @@ public class FacebookExam {
 				.getFromJson(uri)
 				.select("data");
 		
-		String output = "id,reactions";
+		String output = "id,likes,reactions";
 
 		// 遂筆處理
 		for( Element data: elems ){
 			String id = data.select("id").text();
-
+			String likes = data.select("likes").text();
+			String reactions = data.select("reactions").text();
 			// FIXIT
-			String reactions = "";
+			//String reactions = "id,按讚數,心情";
 
 
-			output += id + "," + reactions + "\n";
+			output += id+"\","+likes+","+reactions+"\n";
 		}
 
 		System.out.println( output );
